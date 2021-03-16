@@ -4,35 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_medium"
     tools:context=".ui.fragment.Home">
 
-    <FrameLayout
-        android:id="@+id/summaryFrame"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.30"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.card.MaterialCardView
+    android:id="@+id/overviewCard"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:cardBackgroundColor="@color/light_grey"
+    app:layout_constraintHeight_percent="0.30"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedBottom">
 
         <TextView
             android:id="@+id/currentTotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_gravity="center"
-            tools:text="$ 220.86"
+            tools:text="$220.86"
             style="@style/TextAppearance.MaterialComponents.Headline3"/>
 
-    </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/overviewCard"
+    <FrameLayout
+        android:id="@+id/categoriesCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:cardBackgroundColor="@color/white"
         app:layout_constraintHeight_percent="0.65"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedTop">
+        app:layout_constraintBottom_toBottomOf="parent">
         <TextView
             android:id="@+id/categoriesTitle"
             android:layout_width="wrap_content"
@@ -51,5 +51,5 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
         </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
