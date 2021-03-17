@@ -4,6 +4,7 @@ buildscript {
     ext {
         kotlin_version = "1.4.31"
         nav_version = "2.3.4"
+        hilt_version = "2.33-beta"
     }
     repositories {
         google()
@@ -15,6 +16,10 @@ buildscript {
 
         // safe args class path for navigation component
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
+        // Add hilt DI library
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+
     }
 }
 

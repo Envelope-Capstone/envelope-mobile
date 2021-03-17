@@ -7,14 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
+import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
+import com.joesamyn.envelope.interfaces.services.IEnvelopeService
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Use the [Home.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class Home : Fragment() {
+
+    /**
+     * Private DI variables
+     */
+    @Inject
+    private lateinit var envelopeService: IEnvelopeService
 
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
@@ -25,8 +36,21 @@ class Home : Fragment() {
         // Get bound layout
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
+        // Init recycler view
+        initEnvelopeRecView()
+
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    /**
+     * Initializes the recycler view for the home page that displays the list of envelopes
+     */
+    fun initEnvelopeRecView(){
+        val envelopes = envelopeService.getEnvelopes()
+        val recView = binding.envelopesListView
+        recView.adapter = EnvelopeAdapter(requireContext(), envelopes)
+        recView.setHasFixedSize(true)
     }
 
     companion object {
