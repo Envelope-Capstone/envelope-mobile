@@ -40,16 +40,19 @@
             android:text="@string/envelopes_title_text"
             android:layout_margin="20dp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@id/categoriesFrame"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <FrameLayout
-            android:id="@+id/categoriesFrame"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/envelopesListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.60"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/categoriesTitle"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        </FrameLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

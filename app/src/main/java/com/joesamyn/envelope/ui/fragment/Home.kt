@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
+import com.joesamyn.envelope.databinding.FragmentHomeBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -14,10 +16,17 @@ import com.joesamyn.envelope.R
  */
 class Home : Fragment() {
 
+    // Variables
+    private val linearLayoutManager = LinearLayoutManager(context)
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        // Get bound layout
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
 
     companion object {
