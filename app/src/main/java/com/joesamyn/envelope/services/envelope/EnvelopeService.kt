@@ -11,7 +11,7 @@ class EnvelopeService @Inject constructor(): IEnvelopeService {
      * Private DI Variables
      */
     @Inject
-    private lateinit var envelopRepository: IEnvelopeRepository
+    lateinit var envelopRepository: IEnvelopeRepository
 
     /**
      * Gets all envelope categories

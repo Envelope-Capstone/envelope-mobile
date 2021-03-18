@@ -32,7 +32,7 @@ class EnvelopeAdapter(private val context: Context, private val data: List<Envel
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EnvelopeViewHolder {
         // Obtain layout inflater from context and inflate the view
         // This will allow the adapterLayout variable to hold a reference to the envelope_item.xml view
-        val adapterLayout = LayoutInflater.from(context).inflate(R.layout.envelope_item, parent, false)
+        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.envelope_item, parent, false)
 
         return EnvelopeViewHolder(adapterLayout)
     }

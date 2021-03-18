@@ -14,6 +14,5 @@ import javax.inject.Singleton
 abstract class EnvelopeRepositoryModule {
 
     @Binds
-    @Singleton
     abstract fun envelopeRepository(repository: EnvelopeRepository): IEnvelopeRepository
 }

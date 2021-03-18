@@ -25,7 +25,7 @@ class Home : Fragment() {
      * Private DI variables
      */
     @Inject
-    private lateinit var envelopeService: IEnvelopeService
+    lateinit var envelopeService: IEnvelopeService
 
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
