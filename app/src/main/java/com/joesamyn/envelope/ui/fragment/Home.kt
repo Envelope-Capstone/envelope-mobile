@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
 import com.joesamyn.envelope.interfaces.services.IEnvelopeService
+import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,11 +34,19 @@ class Home : Fragment() {
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Get bound layout
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        // Inflate the layout and get an instance
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_home,
+            container,
+            false)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.homeViewModel = viewModel
+
 
         // Init recycler view
         initEnvelopeRecView()
@@ -51,6 +63,10 @@ class Home : Fragment() {
         val recView = binding.envelopesListView
         recView.adapter = EnvelopeAdapter(requireContext(), envelopes)
         recView.setHasFixedSize(true)
+    }
+
+    fun observeEnvelopesList(){
+
     }
 
     companion object {
