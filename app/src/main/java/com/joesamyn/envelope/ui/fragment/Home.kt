@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
 import com.joesamyn.envelope.interfaces.services.IEnvelopeService
+import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -51,6 +53,9 @@ class Home : Fragment() {
         // Init recycler view
         initEnvelopeRecView()
 
+        // Observers
+        observeEnvelopesList()
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -65,8 +70,13 @@ class Home : Fragment() {
         recView.setHasFixedSize(true)
     }
 
+    /**
+     * Observe the envelopes list and update recycler view with any changes
+     */
     fun observeEnvelopesList(){
-
+        viewModel.envelopes.observe(viewLifecycleOwner, Observer { envelopes ->
+            binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(), envelopes)
+        })
     }
 
     companion object {
