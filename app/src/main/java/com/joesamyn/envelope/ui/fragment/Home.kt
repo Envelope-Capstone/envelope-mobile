@@ -53,9 +53,6 @@ class Home : Fragment() {
         // Init recycler view
         initEnvelopeRecView()
 
-        // Observers
-        observeEnvelopesList()
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -67,7 +64,7 @@ class Home : Fragment() {
         val envelopes = envelopeService.getEnvelopes()
         val recView = binding.envelopesListView
         recView.adapter = EnvelopeAdapter(requireContext(), envelopes)
-        recView.setHasFixedSize(true)
+        observeEnvelopesList()
     }
 
     /**
