@@ -1,0 +1,44 @@
+Coroutines:
+- Help to manage long running tasks that might otherwise block the main thread
+- Features:
+    - Run many coroutines on a single thread
+    - Few memory leaks because operations run within a scope
+    - Built in cancellation support (like cancellation tokens)
+- Use coroutine on IO thread:
+    - viewModelScope.launch(Dispatchers.IO) {
+        callSomeMethod()
+    }
+- main safe means function does not block UI thread
+- suspend keyword is Kotlins way of forcing a function to be called from a non UI thread
+    - if a suspend function is called from a main thread an exception will be thrown
+
+Flows:
+-  Flow is a type that can emit multiple values sequentially, as opposed to
+   suspend functions that return only a single value. We are using flow to
+   receive live updates from a database in this case.
+   - Uses suspend functions to produce and consume values asynchronously
+   - Typical flows:
+    - Repository -> View (user getting data for UI)
+    - View -> Repository (User inputting data)
+- Use flow builder to create a new flow.
+    - flow{} creates a new flow where we can manually emit new values into the
+    stream of data using the emit() function
+        - emit() suspends the execution block until the LiveData value is set on
+        the main thread
+
+Companion Objects:
+- provide a mechanism for defining variables or functions that are linked conceptually
+    to a type but are not tied to a particular object.
+- Similar to using Java's static keyword
+
+Saved State Bundle:
+- A way to persist data even after the process running the UI has been killed.
+    - This data will not be persisted in ViewModel if the process is killed,
+    instead we can used savedStateBundle to persist the data long term so when
+    the process is restarted the state can be restored.
+
+Object:
+- An object is similar to a class except it is more of a static implementation.
+- An object represents a single static instance, and it can never have any more
+    or any less than this one instance.
+- A singleton instance of a class baked into Kotlin essentially

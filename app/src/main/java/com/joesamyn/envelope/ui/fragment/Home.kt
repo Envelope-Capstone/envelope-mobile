@@ -1,6 +1,7 @@
 package com.joesamyn.envelope.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
-import com.joesamyn.envelope.interfaces.services.IEnvelopeService
+import com.joesamyn.envelope.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
+import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -27,19 +27,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Home : Fragment() {
 
-    /**
-     * Private DI variables
-     */
-    @Inject
-    lateinit var envelopeService: IEnvelopeService
+    // Constants
+    private val LOG = Home::class.java.simpleName
 
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout and get an instance
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_home,
@@ -61,19 +58,62 @@ class Home : Fragment() {
      * Initializes the recycler view for the home page that displays the list of envelopes
      */
     fun initEnvelopeRecView(){
-        val envelopes = envelopeService.getEnvelopes()
+        val envelopes = listOf<Envelope>()
         val recView = binding.envelopesListView
         recView.adapter = EnvelopeAdapter(requireContext(), envelopes)
-        observeEnvelopesList()
     }
 
     /**
-     * Observe the envelopes list and update recycler view with any changes
+     * Subscribes to all necessary observables in the ViewModel
      */
-    fun observeEnvelopesList(){
-        viewModel.envelopes.observe(viewLifecycleOwner, Observer { envelopes ->
-            binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(), envelopes)
+    private fun subscribeObservers() {
+        viewModel.dataState.observe(this, Observer { dataState ->
+            // Handle proper state events
+            when(dataState) {
+                // Handle success state (data returned)
+                is DataState.Success<List<EnvelopeEntity>> -> {
+                    TODO("call some functions")
+                }
+
+                // Handle exception thrown
+                is DataState.Error -> {
+                }
+
+                // Handle loading state (show activity icon)
+                is DataState.Loading -> {
+
+                }
+            }
         })
+    }
+
+    /**
+     * Handle error and display proper message
+     */
+    private fun displayError(message: String?){
+        if(message != null){
+            Log.e(LOG, message)
+        }
+        else {
+            Log.e(LOG, "unknown error occured")
+        }
+    }
+
+    /**
+     * Handle progress bar view for when items are loading
+     */
+    private fun displayProgressBar(isDisplay: Boolean){
+        if(isDisplay)
+            Log.d(LOG, "Display the progress bar")
+        else
+            Log.d(LOG, "Stop displaying Progress bar")
+    }
+
+    /**
+     * Display the envelopes from repository get method
+     */
+    private fun displayEnvelopes(){
+
     }
 
     companion object {

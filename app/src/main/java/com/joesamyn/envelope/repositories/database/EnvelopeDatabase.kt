@@ -13,26 +13,6 @@ public abstract class EnvelopeDatabase : RoomDatabase(){
     abstract fun envelopeDao(): EnvelopeDao
 
     companion object {
-
-        // Keep object a singleton to prevent multiple instances of database opening at the same time
-        @Volatile
-        private var INSTANCE: EnvelopeDatabase? = null
-
-
-        fun getDatabase(context: Context): EnvelopeDatabase {
-            // If instance is not null then return it
-            // If it is null then create the database
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    EnvelopeDatabase::class.java,
-                    "envelope_database"
-                ).build()
-                INSTANCE = instance
-
-                // return instance
-                instance
-            }
-        }
+        val DATABASE_NAME: String = "envelope_db"
     }
 }

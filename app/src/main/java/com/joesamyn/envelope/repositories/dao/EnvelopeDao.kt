@@ -19,11 +19,12 @@ interface EnvelopeDao {
      * Get all envelopes from SQLite table
      */
     @Query("SELECT * FROM envelopes")
-    fun getAllEnvelopes(): Flow<List<EnvelopeEntity>> // Flow allows us to observe changes in the data stored in this table
+    suspend fun getAllEnvelopes(): List<EnvelopeEntity>
 
     /**
      * Insert new envelope into SQLite table
+     * (Replace entry on conflict)
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(envelope: EnvelopeEntity)
 }
