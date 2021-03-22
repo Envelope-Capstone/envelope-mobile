@@ -1,4 +1,4 @@
-package com.joesamyn.envelope.entities
+package com.joesamyn.envelope.repositories.entities
 
 import android.graphics.Bitmap
 import androidx.room.ColumnInfo
@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "envelopes")
 data class EnvelopeEntity(
-    @PrimaryKey var id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "icon") var icon: Int
+    @ColumnInfo(name = "icon") var icon: String,
+    @ColumnInfo(name = "total") var total: Double
 )

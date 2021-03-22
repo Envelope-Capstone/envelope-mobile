@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.joesamyn.envelope.entities.EnvelopeEntity
+import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

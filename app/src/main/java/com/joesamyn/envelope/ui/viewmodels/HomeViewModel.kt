@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joesamyn.envelope.entities.EnvelopeEntity
+import com.joesamyn.envelope.R
+import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.repositories.EnvelopeRepository
 import com.joesamyn.envelope.util.DataState
@@ -19,10 +20,11 @@ class HomeViewModel @Inject constructor(
     private val envelopeRepository: EnvelopeRepository
 ): ViewModel() {
 
-    private val _dataState: MutableLiveData<DataState<List<EnvelopeEntity>>> = MutableLiveData()
 
-    // Accessor for the datastate object above
-    val dataState: LiveData<DataState<List<EnvelopeEntity>>>
+    private val _dataState: MutableLiveData<DataState<List<Envelope>>> = MutableLiveData()
+
+    // Accessor for the data state object above
+    val dataState: LiveData<DataState<List<Envelope>>>
         get() = _dataState
 
     fun setStateEvent(homeStateEvent: HomeStateEvent){
@@ -38,18 +40,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val _envelopes = MutableLiveData<List<Envelope>>()
-    val envelopes: LiveData<List<Envelope>>
-        get() = _envelopes
-
     private val _total = MutableLiveData<Double>()
     val total: LiveData<Double>
         get() = _total
 
     /** Functions */
-
-    // TODO("Add function to update Envelope list")
-    // TODO: Add mapper class to map EnvelopeEntity to Envelope domain model
 
 }
 

@@ -2,6 +2,7 @@ package com.joesamyn.envelope.di
 
 import com.joesamyn.envelope.repositories.EnvelopeRepository
 import com.joesamyn.envelope.repositories.dao.EnvelopeDao
+import com.joesamyn.envelope.repositories.mappers.EnvelopeMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +15,10 @@ object EnvelopeRepositoryModule {
 
     @Singleton
     @Provides
-    fun provideEnvelopeRepository(envelopeDao: EnvelopeDao): EnvelopeRepository{
-        return EnvelopeRepository(envelopeDao)
+    fun provideEnvelopeRepository(
+        envelopeDao: EnvelopeDao,
+        envelopeMapper: EnvelopeMapper):
+            EnvelopeRepository {
+        return EnvelopeRepository(envelopeDao, envelopeMapper)
     }
 }

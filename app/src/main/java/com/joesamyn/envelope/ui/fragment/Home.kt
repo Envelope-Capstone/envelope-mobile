@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
-import com.joesamyn.envelope.entities.EnvelopeEntity
+import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
+import com.joesamyn.envelope.ui.viewmodels.HomeStateEvent
 import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,40 +49,35 @@ class Home : Fragment() {
 
 
         // Init recycler view
-        initEnvelopeRecView()
+        subscribeObservers()
+        viewModel.setStateEvent(HomeStateEvent.GetEnvelopeEvent)
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
     /**
-     * Initializes the recycler view for the home page that displays the list of envelopes
-     */
-    fun initEnvelopeRecView(){
-        val envelopes = listOf<Envelope>()
-        val recView = binding.envelopesListView
-        recView.adapter = EnvelopeAdapter(requireContext(), envelopes)
-    }
-
-    /**
      * Subscribes to all necessary observables in the ViewModel
      */
     private fun subscribeObservers() {
-        viewModel.dataState.observe(this, Observer { dataState ->
+        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
             // Handle proper state events
             when(dataState) {
                 // Handle success state (data returned)
-                is DataState.Success<List<EnvelopeEntity>> -> {
-                    TODO("call some functions")
+                is DataState.Success<List<Envelope>> -> {
+                    displayProgressBar(false)
+                    displayEnvelopes(dataState.data)
                 }
 
                 // Handle exception thrown
                 is DataState.Error -> {
+                    displayProgressBar(false)
+                    displayError(dataState.exception.message)
                 }
 
                 // Handle loading state (show activity icon)
                 is DataState.Loading -> {
-
+                    displayProgressBar(true)
                 }
             }
         })
@@ -112,8 +108,8 @@ class Home : Fragment() {
     /**
      * Display the envelopes from repository get method
      */
-    private fun displayEnvelopes(){
-
+    private fun displayEnvelopes(envelopes: List<Envelope>){
+        binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(), envelopes)
     }
 
     companion object {
