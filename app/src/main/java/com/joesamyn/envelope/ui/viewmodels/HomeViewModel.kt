@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,9 +21,11 @@ class HomeViewModel @Inject constructor(
     private val envelopeRepository: EnvelopeRepository
 ): ViewModel() {
 
+    private val _total = MutableLiveData<Double>(0.00)
+    val total: LiveData<Double>
+        get() = _total
 
     private val _dataState: MutableLiveData<DataState<List<Envelope>>> = MutableLiveData()
-
     // Accessor for the data state object above
     val dataState: LiveData<DataState<List<Envelope>>>
         get() = _dataState
@@ -40,12 +43,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val _total = MutableLiveData<Double>()
-    val total: LiveData<Double>
-        get() = _total
-
     /** Functions */
-
+    fun calculateTotal(envelopes: List<Envelope>) {
+        var t = 0.0
+        for(i in envelopes){
+            t += i.total
+        }
+        _total.value = t
+    }
 }
 
 /**

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class Home : Fragment() {
 
     // Constants
-    private val LOG = Home::class.java.simpleName
+    private val TAG = Home::class.java.simpleName
 
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
@@ -52,8 +53,22 @@ class Home : Fragment() {
         subscribeObservers()
         viewModel.setStateEvent(HomeStateEvent.GetEnvelopeEvent)
 
+        // Handle Button Clicks
+        handleButtonClicks()
+
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    /**
+     * Handles all button clicks on the UI and calls the proper method in the ViewModel
+     */
+    private fun handleButtonClicks() {
+        // Add Envelope Button Click
+        binding.addEnvelopeButton.setOnClickListener{
+            // TODO: Navigate to Add Envelope Dialog fragment
+            Log.i(TAG, "Adding new envelope")
+        }
     }
 
     /**
@@ -88,10 +103,10 @@ class Home : Fragment() {
      */
     private fun displayError(message: String?){
         if(message != null){
-            Log.e(LOG, message)
+            Log.e(TAG, message)
         }
         else {
-            Log.e(LOG, "unknown error occured")
+            Log.e(TAG, "unknown error occured")
         }
     }
 
@@ -99,10 +114,7 @@ class Home : Fragment() {
      * Handle progress bar view for when items are loading
      */
     private fun displayProgressBar(isDisplay: Boolean){
-        if(isDisplay)
-            Log.d(LOG, "Display the progress bar")
-        else
-            Log.d(LOG, "Stop displaying Progress bar")
+        binding.envelopesLoadingIndicator.isVisible = isDisplay
     }
 
     /**
@@ -110,6 +122,7 @@ class Home : Fragment() {
      */
     private fun displayEnvelopes(envelopes: List<Envelope>){
         binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(), envelopes)
+        viewModel.calculateTotal(envelopes)
     }
 
     companion object {

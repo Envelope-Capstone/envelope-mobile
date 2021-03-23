@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="envelopes_title_text">Envelopes</string>
     <string name="image_description">Image Description</string>
+    <string name="envelope">Envelope</string>
+    <string name="envelopTotal">$ %.2f</string>
 </resources>

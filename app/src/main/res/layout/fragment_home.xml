@@ -25,7 +25,7 @@
                 android:id="@+id/currentTotalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{homeViewModel.total.toString()}"
+                android:text="@{@string/envelopTotal(homeViewModel.total)}"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_gravity="center"
@@ -49,6 +49,30 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/envelopesLoadingIndicator"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="50dp"
+                android:progress="70"
+                android:indeterminate="true"
+                app:showAnimationBehavior="inward"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addEnvelopeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/envelope"
+                app:icon="@drawable/ic_add"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/envelopesListView"
