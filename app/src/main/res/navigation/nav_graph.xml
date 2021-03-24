@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_home2_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_createEnvelopePopup"
+            app:destination="@id/createEnvelopePopup" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.joesamyn.envelope.ui.fragment.CalendarFragment"
         android:label="Calendar"
         tools:layout="@layout/fragment_calendar" />
+    <dialog
+        android:id="@+id/createEnvelopePopup"
+        android:name="com.joesamyn.envelope.ui.fragment.CreateEnvelopePopup"
+        android:label="CreateEnvelopePopup"
+        tools:layout="@layout/add_envelope_popup"/>
 </navigation>

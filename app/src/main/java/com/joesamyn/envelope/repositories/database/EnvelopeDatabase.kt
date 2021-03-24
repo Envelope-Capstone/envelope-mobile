@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.repositories.dao.EnvelopeDao
 
-@Database(entities = [EnvelopeEntity::class], version = 2, exportSchema = false)
+@Database(entities = [EnvelopeEntity::class], version = 3, exportSchema = false)
 public abstract class EnvelopeDatabase : RoomDatabase(){
 
     abstract fun envelopeDao(): EnvelopeDao

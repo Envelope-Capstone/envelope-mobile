@@ -6,4 +6,17 @@
     <string name="image_description">Image Description</string>
     <string name="envelope">Envelope</string>
     <string name="envelopTotal">$ %.2f</string>
+    <string name="select_the_envelope_category_to_add">Select The Envelope Category To Add</string>
+    <string name="add_envelope">Add Envelope</string>
+    <string name="select_a_envelope">Select a Envelope</string>
+    <string name="merchandise">Merchandise</string>
+    <string name="deptStores">Department Stores</string>
+    <string name="gas">Gas</string>
+    <string name="education">Education</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="supermarkets">Supermarkets</string>
+    <string name="automotive">Automotive</string>
+    <string name="travel">Travel/Entertainment</string>
+    <string name="select_icon">Select Icon</string>
+    <string name="create">Create</string>
 </resources>

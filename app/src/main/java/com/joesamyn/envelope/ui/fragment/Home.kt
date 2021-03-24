@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
@@ -35,7 +37,7 @@ class Home : Fragment() {
     // Variables
     private val linearLayoutManager = LinearLayoutManager(context)
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
+    private val viewModel: HomeViewModel by activityViewModels<HomeViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -66,10 +68,11 @@ class Home : Fragment() {
     private fun handleButtonClicks() {
         // Add Envelope Button Click
         binding.addEnvelopeButton.setOnClickListener{
-            // TODO: Navigate to Add Envelope Dialog fragment
+            findNavController().navigate(R.id.action_homeFragment_to_createEnvelopePopup)
             Log.i(TAG, "Adding new envelope")
         }
     }
+
 
     /**
      * Subscribes to all necessary observables in the ViewModel
@@ -96,6 +99,7 @@ class Home : Fragment() {
                 }
             }
         })
+
     }
 
     /**
