@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
+import com.joesamyn.envelope.adapters.EnvelopeListener
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
 import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
@@ -99,7 +101,6 @@ class Home : Fragment() {
                 }
             }
         })
-
     }
 
     /**
@@ -125,7 +126,10 @@ class Home : Fragment() {
      * Display the envelopes from repository get method
      */
     private fun displayEnvelopes(envelopes: List<Envelope>){
-        binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(), envelopes)
+        binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(),
+                envelopes, EnvelopeListener { envelope ->
+                    Toast.makeText(context, "Clicked $envelope", Toast.LENGTH_SHORT).show()
+        })
         viewModel.calculateTotal(envelopes)
     }
 

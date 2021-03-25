@@ -3,6 +3,7 @@ package com.joesamyn.envelope.di
 import android.content.Context
 import androidx.room.Room
 import com.joesamyn.envelope.repositories.dao.EnvelopeDao
+import com.joesamyn.envelope.repositories.dao.TransactionDao
 import com.joesamyn.envelope.repositories.database.EnvelopeDatabase
 import dagger.Module
 import dagger.Provides
@@ -36,5 +37,14 @@ object DatabaseModule {
     @Provides
     fun provideEnvelopeDao(envelopeDatabase: EnvelopeDatabase): EnvelopeDao {
         return envelopeDatabase.envelopeDao()
+    }
+
+    /**
+     * Provide instance of TransactionDao
+     */
+    @Singleton
+    @Provides
+    fun provideTransactionDao(envelopeDatabase: EnvelopeDatabase): TransactionDao {
+        return envelopeDatabase.transactionDao()
     }
 }

@@ -14,7 +14,6 @@ constructor(private val envelopeDao: EnvelopeDao, private val envelopeMapper: En
 
     suspend fun getEnvelopes(): Flow<DataState<List<Envelope>>> = flow {
         emit(DataState.Loading)
-        delay(1000) // TODO: Remove when done testing
         try {
             // Fetch envelopes from table
             val envelopesEntity = envelopeDao.getAllEnvelopes()
