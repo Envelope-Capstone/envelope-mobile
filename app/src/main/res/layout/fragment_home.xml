@@ -57,7 +57,7 @@
                 android:layout_marginTop="50dp"
                 android:progress="70"
                 android:indeterminate="true"
-                app:showAnimationBehavior="inward"
+                app:indicatorColor="@color/grey_dark_secondary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

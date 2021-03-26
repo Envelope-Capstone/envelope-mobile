@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createEnvelopePopup"
             app:destination="@id/createEnvelopePopup" />
+        <action
+            android:id="@+id/action_homeFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -27,4 +30,14 @@
         android:name="com.joesamyn.envelope.ui.fragment.CreateEnvelopePopup"
         android:label="CreateEnvelopePopup"
         tools:layout="@layout/add_envelope_popup"/>
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.joesamyn.envelope.ui.fragment.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction">
+        <argument
+            android:name="envelopeName"
+            app:argType="string"
+            android:defaultValue="Gas" />
+    </fragment>
 </navigation>

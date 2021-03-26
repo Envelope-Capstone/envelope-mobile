@@ -119,7 +119,10 @@ class Home : Fragment() {
      * Handle progress bar view for when items are loading
      */
     private fun displayProgressBar(isDisplay: Boolean){
-        binding.envelopesLoadingIndicator.isVisible = isDisplay
+        if(isDisplay)
+            binding.envelopesLoadingIndicator.show()
+        else
+            binding.envelopesLoadingIndicator.hide()
     }
 
     /**
@@ -128,7 +131,8 @@ class Home : Fragment() {
     private fun displayEnvelopes(envelopes: List<Envelope>){
         binding.envelopesListView.adapter = EnvelopeAdapter(requireContext(),
                 envelopes, EnvelopeListener { envelope ->
-                    Toast.makeText(context, "Clicked $envelope", Toast.LENGTH_SHORT).show()
+                    val action = HomeDirections.actionHomeFragmentToTransactionFragment(envelope)
+                    findNavController().navigate(action)
         })
         viewModel.calculateTotal(envelopes)
     }

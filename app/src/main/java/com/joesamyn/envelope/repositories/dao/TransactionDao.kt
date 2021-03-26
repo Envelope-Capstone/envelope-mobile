@@ -13,11 +13,11 @@ interface TransactionDao {
      * Get all transactions for a specific envelope
      */
     @Query("SELECT * FROM transactions WHERE Envelope = :envelopeName")
-    fun getTransactionsForEnvelope(envelopeName: String): List<ClassifiedTransactionEntity>
+    suspend fun getTransactionsForEnvelope(envelopeName: String): List<ClassifiedTransactionEntity>
 
     /**
      * Add transaction to database
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTransaction(transaction: ClassifiedTransactionEntity)
+    suspend fun addTransaction(transaction: ClassifiedTransactionEntity)
 }
