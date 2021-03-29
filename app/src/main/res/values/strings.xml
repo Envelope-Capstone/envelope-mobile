@@ -21,4 +21,9 @@
     <string name="create">Create</string>
     <string name="transactions_page_title">Transactions</string>
     <string name="welcome_to_envelope">Welcome To Envelope</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_text">Login</string>
+    <string name="first_time_here">First time here?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:backgroundTint="@color/dark_grey"
     tools:context=".ui.activity.MainActivity">
 
 <!--    Responsible of hosting fragments for pages in the app-->
@@ -12,6 +13,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:backgroundTint="@color/dark_grey"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintTop_toTopOf="parent"
         app:defaultNavHost="true"
@@ -24,4 +26,13 @@
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/navigation_menu" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dark_grey"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </View>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

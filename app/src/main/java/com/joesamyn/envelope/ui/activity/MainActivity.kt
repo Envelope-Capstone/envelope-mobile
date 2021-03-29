@@ -2,6 +2,7 @@ package com.joesamyn.envelope.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.navigation.NavController
@@ -35,6 +36,13 @@ class MainActivity : AppCompatActivity() {
 
         // Set up navigation actions for bottom navigation view
         setupViews()
+    }
+
+    fun hideNavigationBar(hide: Boolean) {
+        if(!hide)
+            binding.bottomNav.visibility = View.VISIBLE
+        else
+            binding.bottomNav.visibility = View.GONE
     }
 
     /**
