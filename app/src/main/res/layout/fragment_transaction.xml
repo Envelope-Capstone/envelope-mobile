@@ -8,12 +8,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
         tools:context=".ui.fragment.TransactionFragment">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/titleCard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/light_grey"
+            app:cardBackgroundColor="@color/dark_grey"
             app:layout_constraintHeight_percent="0.20"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedBottom">
@@ -23,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transactions_page_title"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 style="@style/TextAppearance.MaterialComponents.Headline4"/>
@@ -50,7 +51,8 @@
             android:layout_marginTop="7dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/titleCard"/>
+            app:layout_constraintTop_toBottomOf="@id/titleCard"
+            tools:listitem="@layout/transaction_item"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

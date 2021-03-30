@@ -73,4 +73,8 @@ dependencies {
     // Kotlin Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+    // retrofit libraries
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }

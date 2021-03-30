@@ -20,6 +20,7 @@ import com.joesamyn.envelope.adapters.EnvelopeListener
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
 import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
+import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.HomeStateEvent
 import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
 import com.joesamyn.envelope.util.DataState
@@ -43,6 +44,7 @@ class Home : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+        (activity as MainActivity).hideNavigationBar(false)
         // Inflate the layout and get an instance
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_home,

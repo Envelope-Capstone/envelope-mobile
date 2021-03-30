@@ -10,16 +10,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
         tools:context=".ui.fragment.Home">
 
         <com.google.android.material.card.MaterialCardView
-        android:id="@+id/overviewCard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardBackgroundColor="@color/light_grey"
-        app:layout_constraintHeight_percent="0.30"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedBottom">
+            android:id="@+id/overviewCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/dark_grey"
+            app:layout_constraintHeight_percent="0.30"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedBottom">
 
             <TextView
                 android:id="@+id/currentTotalText"
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/envelopes_title_text"
                 android:layout_margin="20dp"
+                android:textColor="@color/white"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -68,11 +70,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:text="@string/add_envelope"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 app:iconGravity="textStart"
                 app:icon="@drawable/ic_add"
+                app:iconTint="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 

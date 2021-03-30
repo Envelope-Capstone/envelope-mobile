@@ -7,7 +7,7 @@ package com.joesamyn.envelope.util
 sealed class DataState<out R> {
 
     /**
-     * Success state informs the UI that the request was successfull
+     * Success state informs the UI that the request was successful
      */
     data class Success<out T>(val data: T): DataState<T>()
 

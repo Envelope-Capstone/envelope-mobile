@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources >
     <style name="ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedTop" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">30dp</item>
@@ -7,8 +7,15 @@
     </style>
 
     <style name="ShapeAppearanceOverlay.Envelope.MaterialCardView.RoundedBottom" parent="">
-    <item name="cornerFamily">rounded</item>
-    <item name="cornerSizeBottomLeft">30dp</item>
-    <item name="cornerSizeBottomRight">30dp</item>
-</style>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+    <style name="Envelope.Login" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:colorAccent">@color/dark_grey</item>
+        <item name="cornerRadius">5dp</item>
+    </style>
 </resources>
