@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.databinding.FragmentLoginBinding
+import com.joesamyn.envelope.models.User
+import com.joesamyn.envelope.models.UserLogin
 import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +48,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun onLogin() {
-        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        val username = binding.usernameEditText.text.toString()
+        val password = binding.passwordEditText.text.toString()
+        viewModel.password = password
+        viewModel.username = username
+        viewModel.login()
     }
 
 

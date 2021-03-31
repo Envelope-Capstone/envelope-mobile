@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AuthenticationRepositoryModule {
+object AuthenticationRepositoryModule {
 
     /**
      * Provide instance of the AuthenticationRepository

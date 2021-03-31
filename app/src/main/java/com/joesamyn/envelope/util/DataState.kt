@@ -20,4 +20,9 @@ sealed class DataState<out R> {
      * Loading state, data is not yet available
      */
     object Loading: DataState<Nothing>()
+
+    /**
+     * Failed state indicates a failed network request (not 200 ok)
+     */
+    object Failed: DataState<Nothing>()
 }
