@@ -27,4 +27,8 @@
     <string name="first_time_here">First time here?</string>
     <string name="sign_up">Sign Up</string>
     <string name="envelope_icon">envelope icon</string>
+    <string name="usernameNullError">Username cannot be empty.</string>
+    <string name="passwordNullError">Password cannot be empty.</string>
+    <string name="passwordLengthError">Password must be at least 8 characters.</string>
+    <string name="invalid_username_or_password">Invalid username or password</string>
 </resources>

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 /**
  * Handles all authentication requests for user
  */
+@Suppress("SENSELESS_COMPARISON")
 class AuthenticationRepositoryImpl
 constructor(
     private val authService: AuthenticationService
@@ -27,9 +28,11 @@ constructor(
 
             // If successful response parse to user model and emit to UI
             if(authResponse.isSuccessful) {
-                Log.i("TAG", "success")
                 val authenticatedUser = authResponse.body()!!
-                emit(DataState.Success(authenticatedUser))
+                if(authenticatedUser.AccessToken == null)
+                    emit(DataState.Failed)
+                else
+                    emit(DataState.Success(authenticatedUser))
             }
             // Authentication Request Failed
             else {

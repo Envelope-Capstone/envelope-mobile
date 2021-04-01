@@ -16,6 +16,7 @@ import com.joesamyn.envelope.models.AuthResp
 import com.joesamyn.envelope.models.User
 import com.joesamyn.envelope.models.UserLogin
 import com.joesamyn.envelope.ui.activity.MainActivity
+import com.joesamyn.envelope.ui.viewmodels.LoginStateEvent
 import com.joesamyn.envelope.ui.viewmodels.LoginViewModel
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,8 @@ class LoginFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.hide()
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         // Set onclick listeners
         setOnClickListeners()
@@ -50,18 +53,39 @@ class LoginFragment : Fragment() {
      */
     private fun setOnClickListeners(){
         // Login clicked
-        binding.loginButton.setOnClickListener { onLogin() }
+        binding.loginButton.setOnClickListener {
+            if(validateInput())
+                viewModel.setStateEvent(LoginStateEvent.LoginEvent)
+        }
     }
 
-    private fun onLogin() {
+    private fun validateInput(): Boolean {
         val username = binding.usernameEditText.text.toString()
         val password = binding.passwordEditText.text.toString()
-        viewModel.password = password
-        viewModel.username = username
-        viewModel.login()
+
+        if(username == ""){
+            binding.username.error = getString(R.string.usernameNullError)
+            return false
+        }
+
+        if(password == ""){
+            binding.password.error = getString(R.string.passwordNullError)
+            return false
+        }
+
+        if(password.length < 8){
+            binding.password.error = getString(R.string.passwordLengthError)
+            return false
+        }
+
+        binding.username.error = null
+        binding.password.error = null
+        return true
     }
 
     private fun subscribeObservers() {
+
+        // State Observer
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
             when(dataState){
                 is DataState.Success<AuthResp> -> {
@@ -81,6 +105,7 @@ class LoginFragment : Fragment() {
                 }
             }
         })
+
     }
 
     /**
@@ -101,7 +126,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun showErrorUi(isVisible: Boolean) {
-        // TODO: Setup error UI
+        if(isVisible)
+            binding.invalidLoginText.visibility = View.VISIBLE
+        else
+            binding.invalidLoginText.visibility = View.GONE
     }
 
     // Static class used to get instance of LoginFragment

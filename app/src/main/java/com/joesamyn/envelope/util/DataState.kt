@@ -25,4 +25,9 @@ sealed class DataState<out R> {
      * Failed state indicates a failed network request (not 200 ok)
      */
     object Failed: DataState<Nothing>()
+
+    /**
+     * User input is invalid
+     */
+    data class Invalid<out String>(val message: String): DataState<String>()
 }
