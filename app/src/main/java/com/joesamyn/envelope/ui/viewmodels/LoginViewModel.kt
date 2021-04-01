@@ -11,6 +11,7 @@ import com.joesamyn.envelope.repositories.interfaces.AuthenticationRepository
 import com.joesamyn.envelope.ui.fragment.Home
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,10 +45,11 @@ class LoginViewModel @Inject constructor(private val authRepository: Authenticat
     fun login() {
         viewModelScope.launch {
             val user = UserLogin(username, password)
-            val auth = authRepository.authenticate(user)
+            authRepository.authenticate(user)
                 .onEach { dataState ->
                     _dataState.value = dataState
-                }
+                    Log.i("Login Repo","State updated")
+                }.launchIn(viewModelScope)
         }
     }
 }

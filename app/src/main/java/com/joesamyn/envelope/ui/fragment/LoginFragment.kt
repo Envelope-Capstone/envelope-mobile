@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.databinding.FragmentLoginBinding
+import com.joesamyn.envelope.models.AuthResp
 import com.joesamyn.envelope.models.User
 import com.joesamyn.envelope.models.UserLogin
 import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.LoginViewModel
+import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +36,9 @@ class LoginFragment : Fragment() {
 
         // Set onclick listeners
         setOnClickListeners()
+
+        // Observe Live Data
+        subscribeObservers()
 
         return binding.root
 
@@ -55,6 +61,48 @@ class LoginFragment : Fragment() {
         viewModel.login()
     }
 
+    private fun subscribeObservers() {
+        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+            when(dataState){
+                is DataState.Success<AuthResp> -> {
+                    showProgressBar(false)
+                    showErrorUi(false)
+                    loggedIn()
+                }
+
+                is DataState.Loading -> {
+                    showProgressBar(true)
+                    showErrorUi(false)
+                }
+
+                is DataState.Failed -> {
+                    showErrorUi(true)
+                    showProgressBar(false)
+                }
+            }
+        })
+    }
+
+    /**
+     * Handle successful login navigation
+     */
+    private fun loggedIn() {
+        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+    }
+
+    /**
+     * Show or hide progress bar
+     */
+    private fun showProgressBar(isVisible: Boolean) {
+        if(isVisible)
+            binding.loadingIndicator.visibility = View.VISIBLE
+        else
+            binding.loadingIndicator.visibility = View.GONE
+    }
+
+    private fun showErrorUi(isVisible: Boolean) {
+        // TODO: Setup error UI
+    }
 
     // Static class used to get instance of LoginFragment
     companion object {

@@ -27,6 +27,19 @@
             app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/envelope_icon" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:progress="70"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/dark_blue"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/username"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username"
             android:layout_width="300dp"
