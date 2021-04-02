@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -15,15 +16,25 @@ import com.joesamyn.envelope.databinding.FragmentLoginBinding
 import com.joesamyn.envelope.models.AuthResp
 import com.joesamyn.envelope.models.User
 import com.joesamyn.envelope.models.UserLogin
+import com.joesamyn.envelope.repositories.UserRepository
 import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.LoginStateEvent
 import com.joesamyn.envelope.ui.viewmodels.LoginViewModel
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    /**
+     * DI
+     */
+    @Inject lateinit var userRepo: UserRepository
+
+    /**
+     * Private variables
+     */
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels<LoginViewModel>()
 
@@ -91,7 +102,7 @@ class LoginFragment : Fragment() {
                 is DataState.Success<AuthResp> -> {
                     showProgressBar(false)
                     showErrorUi(false)
-                    loggedIn()
+                    loggedIn(dataState.data)
                 }
 
                 is DataState.Loading -> {
@@ -111,7 +122,10 @@ class LoginFragment : Fragment() {
     /**
      * Handle successful login navigation
      */
-    private fun loggedIn() {
+    private fun loggedIn(authResp: AuthResp) {
+        val user = User(viewModel.username.value!!, authResp.AccessToken, authResp.RefreshToken)
+        userRepo.setUserTokens(user)
+        Toast.makeText(requireContext(), "Login Successful!", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
     }
 

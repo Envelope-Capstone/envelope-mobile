@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joesamyn.envelope.R
 import com.joesamyn.envelope.models.Envelope
+import com.joesamyn.envelope.models.TempTransactions
 import com.joesamyn.envelope.repositories.EnvelopeRepository
 import com.joesamyn.envelope.ui.fragment.Home
 import com.joesamyn.envelope.util.DataState
@@ -43,6 +44,13 @@ class HomeViewModel @Inject constructor(
                         .onEach{ dataState ->
                             _dataState.value = dataState
                         }.launchIn(viewModelScope)
+                }
+
+                is HomeStateEvent.GetNewTransaction -> {
+                    val trx = TempTransactions.getTransaction()
+                    // Call repo to classify
+                    // Insert classTrx into db
+                    // Update envelope total with update statement
                 }
             }
         }
@@ -93,6 +101,9 @@ class HomeViewModel @Inject constructor(
 sealed class HomeStateEvent {
     // Event to listen and get all the envelopes from the Database
     object GetEnvelopeEvent: HomeStateEvent()
+
+    // Event to listen for new transaction to be published and calls logic to react accordingly
+    object GetNewTransaction: HomeStateEvent()
 
     // None event used to clear up state
     object None: HomeStateEvent()
