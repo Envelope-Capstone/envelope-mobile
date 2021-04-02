@@ -6,11 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +15,6 @@ import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.adapters.EnvelopeListener
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
-import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.HomeStateEvent
@@ -60,7 +56,7 @@ class Home : Fragment() {
         viewModel.setStateEvent(HomeStateEvent.GetEnvelopeEvent)
 
         // Handle Button Clicks
-        handleButtonClicks()
+        setOnClickListeners()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -69,11 +65,16 @@ class Home : Fragment() {
     /**
      * Handles all button clicks on the UI and calls the proper method in the ViewModel
      */
-    private fun handleButtonClicks() {
+    private fun setOnClickListeners() {
         // Add Envelope Button Click
         binding.addEnvelopeButton.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_createEnvelopePopup)
             Log.i(TAG, "Adding new envelope")
+        }
+
+        // Add Transaction Button
+        binding.addTransactionButton.setOnClickListener {
+            viewModel.setStateEvent(HomeStateEvent.GetNewTransaction)
         }
     }
 

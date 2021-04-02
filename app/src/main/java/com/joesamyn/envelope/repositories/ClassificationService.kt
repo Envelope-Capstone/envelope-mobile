@@ -10,5 +10,5 @@ import retrofit2.http.POST
 interface ClassificationService {
 
     @POST("classify_trx")
-    suspend fun classifyTransaction(@Header("Authorization") token: String, @Body trx: Transaction): Response<ClassifiedTransaction>
+    suspend fun classifyTransaction(@Header("Authorization") token: String, @Body trx: List<Transaction>): Response<ClassifiedTransaction>
 }
