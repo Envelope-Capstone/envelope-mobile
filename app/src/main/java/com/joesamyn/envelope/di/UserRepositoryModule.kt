@@ -1,5 +1,6 @@
 package com.joesamyn.envelope.di
 
+import com.joesamyn.envelope.repositories.AuthenticationService
 import com.joesamyn.envelope.repositories.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ object UserRepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideUserRepository(): UserRepository {
-        return UserRepository()
+    fun provideUserRepository(authService: AuthenticationService): UserRepository {
+        return UserRepository(authService)
     }
 }

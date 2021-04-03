@@ -1,5 +1,6 @@
 package com.joesamyn.envelope.ui.viewmodels
 
+import android.provider.ContactsContract
 import android.provider.Settings.Global.getString
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,9 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joesamyn.envelope.R
+import com.joesamyn.envelope.models.ClassifiedTransaction
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.models.TempTransactions
 import com.joesamyn.envelope.repositories.EnvelopeRepository
+import com.joesamyn.envelope.repositories.TransactionRepository
+import com.joesamyn.envelope.repositories.interfaces.ClassificationRepository
 import com.joesamyn.envelope.ui.fragment.Home
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val envelopeRepository: EnvelopeRepository
+    private val envelopeRepository: EnvelopeRepository,
+    private val classificationRepository: ClassificationRepository
 ): ViewModel() {
 
     private val TAG = HomeViewModel::class.java.simpleName
@@ -34,6 +39,11 @@ class HomeViewModel @Inject constructor(
     // Accessor for the data state object above
     val dataState: LiveData<DataState<List<Envelope>>>
         get() = _dataState
+
+    // Variable for temp transaction demo
+    private val _trxDataState: MutableLiveData<DataState<ClassifiedTransaction>> = MutableLiveData()
+    val trxDataState: LiveData<DataState<ClassifiedTransaction>>
+        get() = _trxDataState
 
 
     fun setStateEvent(homeStateEvent: HomeStateEvent){
@@ -49,8 +59,11 @@ class HomeViewModel @Inject constructor(
                 is HomeStateEvent.GetNewTransaction -> {
                     val trx = TempTransactions.getTransaction()
                     // Call repo to classify
-                    // Insert classTrx into db
-                    // Update envelope total with update statement
+                    viewModelScope.launch {
+                        classificationRepository.classifyTransaction(trx).onEach { trxDs ->
+                            _trxDataState.value = trxDs
+                        }.launchIn(viewModelScope)
+                    }
                 }
             }
         }

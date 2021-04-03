@@ -16,11 +16,13 @@ import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.adapters.EnvelopeListener
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
 import com.joesamyn.envelope.models.Envelope
+import com.joesamyn.envelope.repositories.TransactionRepository
 import com.joesamyn.envelope.ui.activity.MainActivity
 import com.joesamyn.envelope.ui.viewmodels.HomeStateEvent
 import com.joesamyn.envelope.ui.viewmodels.HomeViewModel
 import com.joesamyn.envelope.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -83,6 +85,7 @@ class Home : Fragment() {
      * Subscribes to all necessary observables in the ViewModel
      */
     private fun subscribeObservers() {
+        // Observe Envelope Updates
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
             // Handle proper state events
             when(dataState) {

@@ -10,7 +10,8 @@ import java.lang.Exception
 
 class ClassificationRepositoryImpl constructor(
     private val classificationService: ClassificationService,
-    private val userRepo: UserRepository): ClassificationRepository {
+    private val userRepo: UserRepository,
+    private val transactionRepository: TransactionRepository): ClassificationRepository {
 
     /**
      * Send transaction to ML API to be classified
@@ -20,11 +21,18 @@ class ClassificationRepositoryImpl constructor(
         val trxList = listOf(trx)
 
         try {
-            // TODO: Setup getAccessToken method to refresh if token is expired
+            userRepo.getRefreshToken()
+
+
             val resp = classificationService.classifyTransaction(userRepo.getAccessToken(), trxList)
 
             if(resp.isSuccessful) {
-                emit(DataState.Success(resp.body()!!))
+                val classifiedTrx = resp.body()!!
+                transactionRepository.addTransaction(classifiedTrx)
+                emit(DataState.Success(classifiedTrx))
+            }
+            else {
+                emit(DataState.Failed)
             }
 
         }catch (ex: Exception) {
