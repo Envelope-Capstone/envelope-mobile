@@ -1,10 +1,8 @@
 package com.joesamyn.envelope.di
 
-import com.joesamyn.envelope.repositories.ClassificationRepositoryImpl
-import com.joesamyn.envelope.repositories.ClassificationService
-import com.joesamyn.envelope.repositories.TransactionRepository
-import com.joesamyn.envelope.repositories.UserRepository
+import com.joesamyn.envelope.repositories.*
 import com.joesamyn.envelope.repositories.interfaces.ClassificationRepository
+import com.joesamyn.envelope.repositories.mappers.TransactionMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +17,10 @@ object ClassificationRepositoryModule {
     @Provides
     fun provideClassificationRepository(classificationService: ClassificationService,
                                         userRepository: UserRepository,
-                                        transactionRepository: TransactionRepository): ClassificationRepository {
-        return ClassificationRepositoryImpl(classificationService, userRepository, transactionRepository)
+                                        transactionRepository: TransactionRepository,
+                                        envelopeRepository: EnvelopeRepository,
+                                        transactionMapper: TransactionMapper): ClassificationRepository {
+        return ClassificationRepositoryImpl(classificationService, userRepository,
+                transactionRepository, envelopeRepository, transactionMapper)
     }
 }

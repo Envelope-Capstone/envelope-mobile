@@ -14,7 +14,6 @@ constructor(private val envelopeDao: EnvelopeDao, private val envelopeMapper: En
 
     suspend fun getEnvelopes(): Flow<DataState<List<Envelope>>> = flow {
         emit(DataState.Loading)
-        delay(1000)
         try {
             // Fetch envelopes from table
             val envelopesEntity = envelopeDao.getAllEnvelopes()
@@ -33,5 +32,9 @@ constructor(private val envelopeDao: EnvelopeDao, private val envelopeMapper: En
     suspend fun addEnvelope(envelope: Envelope) {
         val envelopeEntity = envelopeMapper.mapToEntity(envelope)
         envelopeDao.insert(envelopeEntity)
+    }
+
+    suspend fun updateEnvelopeTotal(envelope: String, cost: Double){
+        envelopeDao.updateEnvelopeTotal(cost, envelope)
     }
 }

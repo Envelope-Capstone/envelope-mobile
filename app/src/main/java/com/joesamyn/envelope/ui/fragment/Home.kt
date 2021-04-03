@@ -15,6 +15,7 @@ import com.joesamyn.envelope.R
 import com.joesamyn.envelope.adapters.EnvelopeAdapter
 import com.joesamyn.envelope.adapters.EnvelopeListener
 import com.joesamyn.envelope.databinding.FragmentHomeBinding
+import com.joesamyn.envelope.models.ClassifiedTransaction
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.repositories.TransactionRepository
 import com.joesamyn.envelope.ui.activity.MainActivity
@@ -93,6 +94,28 @@ class Home : Fragment() {
                 is DataState.Success<List<Envelope>> -> {
                     displayProgressBar(false)
                     displayEnvelopes(dataState.data)
+                }
+
+                // Handle exception thrown
+                is DataState.Error -> {
+                    displayProgressBar(false)
+                    displayError(dataState.exception.message)
+                }
+
+                // Handle loading state (show activity icon)
+                is DataState.Loading -> {
+                    displayProgressBar(true)
+                }
+            }
+        })
+
+        // Observe transaction
+        viewModel.trxDataState.observe(viewLifecycleOwner, Observer { dataState ->
+            when(dataState){
+                // Handle success state (data returned)
+                is DataState.Success<ClassifiedTransaction> -> {
+                    displayProgressBar(false)
+                    viewModel.setStateEvent(HomeStateEvent.GetEnvelopeEvent)
                 }
 
                 // Handle exception thrown

@@ -26,4 +26,7 @@ interface EnvelopeDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(envelope: EnvelopeEntity)
+
+    @Query("UPDATE envelopes SET total = total + :cost WHERE name = :envelope")
+    suspend fun updateEnvelopeTotal(cost: Double, envelope: String)
 }

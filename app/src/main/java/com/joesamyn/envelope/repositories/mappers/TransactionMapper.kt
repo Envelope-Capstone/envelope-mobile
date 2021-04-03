@@ -1,6 +1,7 @@
 package com.joesamyn.envelope.repositories.mappers
 
 import com.joesamyn.envelope.models.ClassifiedTransaction
+import com.joesamyn.envelope.models.ClassifiedTransactionResp
 import com.joesamyn.envelope.models.Envelope
 import com.joesamyn.envelope.repositories.entities.ClassifiedTransactionEntity
 import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
@@ -34,6 +35,20 @@ class TransactionMapper @Inject constructor(): IEntityDomainMapper<ClassifiedTra
                 Envelope = domain.Envelope,
                 Description = domain.Description,
                 Amount = domain.Amount
+        )
+    }
+
+    /**
+     * Map from a classifiedTransactionResp object to a ClassifiedTransaction object.
+     */
+    fun mapFromClassificationResp(resp: ClassifiedTransactionResp): ClassifiedTransaction {
+        return ClassifiedTransaction(
+                Id = 0,
+                TransactionDate = resp.TransactionDate,
+                PostDate = resp.PostDate,
+                Amount = resp.Amount,
+                Description = resp.Description,
+                Envelope = resp.Envelope
         )
     }
 

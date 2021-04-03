@@ -17,7 +17,6 @@ constructor(private val transactionDao: TransactionDao, private val mapper: Tran
      */
     suspend fun getTransactionsForEnvelope(envelope: String): Flow<DataState<List<ClassifiedTransaction>>> = flow {
         emit(DataState.Loading)
-        delay(1000) // TODO: Remove when activity indicator is verified to be working
         try {
             // Fetch transactions from table for envelope
             val transactionsEntity = transactionDao.getTransactionsForEnvelope(envelope)
