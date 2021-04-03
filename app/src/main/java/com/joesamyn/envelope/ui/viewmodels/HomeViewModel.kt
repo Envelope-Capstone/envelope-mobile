@@ -26,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val envelopeRepository: EnvelopeRepository,
-    private val classificationRepository: ClassificationRepository
+    private val classificationRepository: ClassificationRepository,
+    private val transactionRepository: TransactionRepository
 ): ViewModel() {
 
     private val TAG = HomeViewModel::class.java.simpleName
@@ -84,13 +85,19 @@ class HomeViewModel @Inject constructor(
     fun addEnvelope(envelopeName: String){
         try {
             viewModelScope.launch {
-                envelopeRepository.addEnvelope(Envelope(0, envelopeName, getIconForEnvelope(envelopeName), 0.00))
+                val trxs = transactionRepository.getEnvelopeTransactions(envelopeName)
+                var total: Double = 0.00
+                for(i in trxs){
+                    total += i.Amount
+                }
+                envelopeRepository.addEnvelope(Envelope(0, envelopeName, getIconForEnvelope(envelopeName), total))
+                setStateEvent(HomeStateEvent.GetEnvelopeEvent)
             }
         }catch (ex: Exception){
             Log.e(TAG, ex.message!!)
         }
 
-        setStateEvent(HomeStateEvent.GetEnvelopeEvent)
+
     }
 
     private fun getIconForEnvelope(name: String): Int{

@@ -4,10 +4,8 @@ import com.joesamyn.envelope.models.ClassifiedTransaction
 import com.joesamyn.envelope.repositories.dao.TransactionDao
 import com.joesamyn.envelope.repositories.mappers.TransactionMapper
 import com.joesamyn.envelope.util.DataState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.*
 
 class TransactionRepository
 constructor(private val transactionDao: TransactionDao, private val mapper: TransactionMapper){
@@ -35,5 +33,11 @@ constructor(private val transactionDao: TransactionDao, private val mapper: Tran
     suspend fun addTransaction(transaction: ClassifiedTransaction){
         val transactionEntity = mapper.mapToEntity(transaction)
         transactionDao.addTransaction(transactionEntity)
+    }
+
+    suspend fun getEnvelopeTransactions(envelope: String): List<ClassifiedTransaction>{
+        val transactionsEntity = transactionDao.getTransactionsForEnvelope(envelope)
+        // Map to domain model
+        return mapper.mapFromEntityList(transactionsEntity)
     }
 }
