@@ -6,6 +6,7 @@ import com.joesamyn.envelope.repositories.entities.EnvelopeEntity
 import com.joesamyn.envelope.util.IEntityDomainMapper
 import javax.inject.Inject
 
+@Suppress("DUPLICATE_LABEL_IN_WHEN")
 class EnvelopeMapper @Inject constructor(): IEntityDomainMapper<EnvelopeEntity, Envelope> {
 
     override fun mapFromEntity(entity: EnvelopeEntity): Envelope {
@@ -33,16 +34,28 @@ class EnvelopeMapper @Inject constructor(): IEntityDomainMapper<EnvelopeEntity, 
         return entities.map { mapFromEntity(it) }
     }
 
-    fun getIcon(iconName: String): Int{
+    private fun getIcon(iconName: String): Int{
         return when(iconName){
             "gas" -> R.drawable.gas_classification
+            "merchandise" -> R.drawable.ic_supermarket
+            "deptStores" -> R.drawable.ic_deptstores
+            "education" -> R.drawable.ic_education
+            "restaurants" -> R.drawable.ic_restaurant
+            "supermarkets" -> R.drawable.ic_supermarket
+            "automotive" -> R.drawable.ic_auto
             else -> R.drawable.gas_classification
         }
     }
 
-    fun getIconName(drawableId: Int): String{
+    private fun getIconName(drawableId: Int): String{
         return when(drawableId) {
             R.drawable.gas_classification -> "gas"
+            R.drawable.ic_supermarket -> "merchandise"
+            R.drawable.ic_deptstores -> "deptStores"
+            R.drawable.ic_education -> "education"
+            R.drawable.ic_restaurant -> "restaurants"
+            R.drawable.ic_supermarket -> "supermarkets"
+            R.drawable.ic_auto -> "automotive"
             else -> "gas"
         }
     }
